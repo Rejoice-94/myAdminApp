@@ -12,7 +12,7 @@ export class EmployeeService {
 
   constructor(private http: HttpClient) { }
   private baseUrl = "http://localhost:8090/admin/api"
-
+  //========== Add/register an employee =============//
   registerEmployee(employee: Employee): Observable<Employee> {
     const httpOptions = {
       headers: new HttpHeaders({
@@ -22,6 +22,7 @@ export class EmployeeService {
     };
     return this.http.post<Employee>(this.baseUrl + "/employee", employee, httpOptions)
   }
+  //========== get all employees =============//
   getAllEmployees(): any {
     return this.http.get(this.baseUrl + "/employees");
   }

@@ -34,3 +34,16 @@ label {
 .btn-container{
     text-align: center;
 }
+.status-view{
+text-align: center;
+font-weight: 400;
+} 
+.success{
+    color: green;
+}
+.warning{
+    color:coral;
+}
+.error{
+    color: red;
+}

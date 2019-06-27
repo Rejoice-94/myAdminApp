@@ -18,14 +18,17 @@ export class Employee {
 })
 export class EmployeeComponent implements OnInit {
 
-  errorMessage : string = "";
+  errorMessage: string = "";
   employee = new Employee();
-  employeeList:any =  [];
+  employeeList: any = [];
   constructor(private fb: FormBuilder, private empService: EmployeeService) {
     this.createRegnForm();
   }
-
-  ngOnInit() {    
+  statusView = {
+    "msg": "",
+    "type": ""
+  }
+  ngOnInit() {
     this.loadEmployees()
   }
   empRegistrationForm: FormGroup;
@@ -60,6 +63,8 @@ export class EmployeeComponent implements OnInit {
   ];
   resetForm() {
     this.empRegistrationForm.reset()
+    this.statusView.msg = ""
+    this.statusView.type = ""
   }
   //========= Handler for register employee form ========//
   registerEmployee() {
@@ -74,22 +79,35 @@ export class EmployeeComponent implements OnInit {
       this.empService.registerEmployee(this.employee)
         .subscribe(emp => {
           console.log("Add Employee Response...", emp)
+          this.statusView.msg = "Successfully Registered !!"
+          this.statusView.type = "success"
           this.loadEmployees()
+          setTimeout(() => {
+            this.resetForm();
+          }, 3000);
         },
-          error => this.errorMessage = <any>error);
+          error => {
+            this.errorMessage = <any>error
+            this.statusView.msg = "Error, Please try again after sometime !!"
+            this.statusView.type = "error"
+          });
     } else {
       alert("invalid form")
+      this.statusView.msg = "Please fill up all the details !!"
+      this.statusView.type = "error"
     }
   }
-  loadEmployees(){
+  //========= Method to fetch all registered employee ========//
+  loadEmployees() {
     this.empService.getAllEmployees()
-    .subscribe(empList => {
-      this.employeeList = [];
-      console.log("GET all Employee Response...", empList);
-      this.employeeList = empList;
-    },
-      error => this.errorMessage = <any>error);
+      .subscribe(empList => {
+        this.employeeList = [];
+        console.log("GET all Employee Response...", empList);
+        this.employeeList = empList;
+      },
+        error => this.errorMessage = <any>error);
   }
+  //========= Method to create employee registration form  ========//
   createRegnForm() {
     this.empRegistrationForm = this.fb.group({
       firstName: ['', Validators.required],
