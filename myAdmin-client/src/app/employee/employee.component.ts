@@ -20,11 +20,13 @@ export class EmployeeComponent implements OnInit {
 
   errorMessage : string = "";
   employee = new Employee();
+  employeeList:any =  [];
   constructor(private fb: FormBuilder, private empService: EmployeeService) {
     this.createRegnForm();
   }
 
-  ngOnInit() {
+  ngOnInit() {    
+    this.loadEmployees()
   }
   empRegistrationForm: FormGroup;
   rows = [
@@ -72,11 +74,21 @@ export class EmployeeComponent implements OnInit {
       this.empService.registerEmployee(this.employee)
         .subscribe(emp => {
           console.log("Add Employee Response...", emp)
+          this.loadEmployees()
         },
           error => this.errorMessage = <any>error);
     } else {
       alert("invalid form")
     }
+  }
+  loadEmployees(){
+    this.empService.getAllEmployees()
+    .subscribe(empList => {
+      this.employeeList = [];
+      console.log("GET all Employee Response...", empList);
+      this.employeeList = empList;
+    },
+      error => this.errorMessage = <any>error);
   }
   createRegnForm() {
     this.empRegistrationForm = this.fb.group({

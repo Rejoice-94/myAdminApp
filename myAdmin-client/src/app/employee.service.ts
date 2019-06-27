@@ -23,7 +23,7 @@ export class EmployeeService {
     return this.http.post<Employee>(this.baseUrl + "/employee", employee, httpOptions)
   }
   getAllEmployees(): any {
-
+    return this.http.get(this.baseUrl + "/employees");
   }
   private handleErrorObservable(error: Response | any) {
     console.error(error.message || error);

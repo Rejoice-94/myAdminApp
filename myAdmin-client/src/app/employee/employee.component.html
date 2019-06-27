@@ -26,7 +26,11 @@
             <div class="form-group">
                 <label class="center-block">Gender:
                 </label>
-                <input class="form-control" formControlName="gender">
+                <select class="form-control" formControlName="gender">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Others">Others</option>
+                </select>
             </div>
             <div *ngIf="empRegistrationForm.controls['gender'].invalid && (empRegistrationForm.controls['gender'].dirty || empRegistrationForm.controls['gender'].touched)"
                 class="alert alert-danger">
@@ -56,13 +60,15 @@
                     Department is required.
                 </div>
             </div>
-            <button class="btn" (click)="registerEmployee()"><i class="fa fa-upload"></i> Submit</button>
-            <button class="btn" (click)="resetForm()"><i class="fa fa-reply"></i> Reset</button>
+            <div class="btn-container">
+                <button class="btn" (click)="registerEmployee()"><i class="fa fa-upload"></i> Register</button>
+                <button class="btn" (click)="resetForm()"><i class="fa fa-reply"></i> Reset</button>
+            </div>
         </form>
     </div>
     <div class="col-md-8 float-left">
         <ngx-datatable class="material fullscreen" style="top: 10px" [columnMode]="'force'" [headerHeight]="50"
-            [footerHeight]="0" [rowHeight]="50" [scrollbarV]="true" [scrollbarH]="true" [rows]="rows">
+            [footerHeight]="0" [rowHeight]="50" [scrollbarV]="flase" [scrollbarH]="true" [rows]="employeeList">
             <ngx-datatable-column name="Emp Id"></ngx-datatable-column>
             <ngx-datatable-column name="First Name"></ngx-datatable-column>
             <ngx-datatable-column name="Last Name"></ngx-datatable-column>

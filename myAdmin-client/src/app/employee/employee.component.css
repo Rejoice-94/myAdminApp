@@ -31,3 +31,6 @@ label {
 .float-left{
     float: left;
 }
+.btn-container{
+    text-align: center;
+}
