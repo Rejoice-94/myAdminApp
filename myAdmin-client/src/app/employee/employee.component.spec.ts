@@ -22,4 +22,13 @@ describe('EmployeeComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  it('form invalid when empty', () => {
+    expect(component.empRegistrationForm.valid).toBeFalsy();
+  });
+  it('firstName field validity', () => {
+    let errors = {};
+    let firstName = component.empRegistrationForm.controls['firstName'];
+    errors = firstName.errors || {};
+    expect(errors['required']).toBeTruthy(); (1)
+  });
 });
