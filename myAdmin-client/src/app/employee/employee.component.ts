@@ -1,4 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { EmployeeService } from '../employee.service';
+
+export class Employee {
+  dateOfBirth: string;
+  department: string;
+  empId: string;
+  firstName: string;
+  gender: string;
+  lastName: string;
+}
 
 @Component({
   selector: 'app-employee',
@@ -7,10 +18,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EmployeeComponent implements OnInit {
 
-  constructor() { }
+  errorMessage : string = "";
+  employee = new Employee();
+  constructor(private fb: FormBuilder, private empService: EmployeeService) {
+    this.createRegnForm();
+  }
 
   ngOnInit() {
   }
+  empRegistrationForm: FormGroup;
   rows = [
     {
       "dateOfBirth": "2019-06-26T18:31:18.491Z",
@@ -19,14 +35,14 @@ export class EmployeeComponent implements OnInit {
       "firstName": "string",
       "gender": "string",
       "lastName": "string"
-    },{
+    }, {
       "dateOfBirth": "2019-06-26T18:31:18.491Z",
       "department": "string2",
       "empId": 2,
       "firstName": "string",
       "gender": "string",
       "lastName": "string"
-    },{
+    }, {
       "dateOfBirth": "2019-06-26T18:31:18.491Z",
       "department": "string3",
       "empId": 3,
@@ -40,4 +56,35 @@ export class EmployeeComponent implements OnInit {
     { name: 'Gender' },
     { name: 'Company' }
   ];
+  resetForm() {
+    this.empRegistrationForm.reset()
+  }
+  //========= Handler for register employee form ========//
+  registerEmployee() {
+    console.log("empRegistrationForm : ", this.empRegistrationForm)
+    if (this.empRegistrationForm.valid) {
+      this.employee.firstName = this.empRegistrationForm.get("firstName").value
+      this.employee.lastName = this.empRegistrationForm.get("lastName").value
+      this.employee.dateOfBirth = this.empRegistrationForm.get("dateOfBirth").value
+      this.employee.department = this.empRegistrationForm.get("department").value
+      this.employee.gender = this.empRegistrationForm.get("gender").value
+      //========= Call Register Employee Service ========//
+      this.empService.registerEmployee(this.employee)
+        .subscribe(emp => {
+          console.log("Add Employee Response...", emp)
+        },
+          error => this.errorMessage = <any>error);
+    } else {
+      alert("invalid form")
+    }
+  }
+  createRegnForm() {
+    this.empRegistrationForm = this.fb.group({
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      gender: ['', Validators.required],
+      dateOfBirth: ['', Validators.required],
+      department: ['', Validators.required]
+    });
+  }
 }

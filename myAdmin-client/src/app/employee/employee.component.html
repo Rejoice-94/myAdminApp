@@ -1,17 +1,74 @@
-<ngx-datatable
-        class="material fullscreen"
-        style="top: 10px"
-        [columnMode]="'force'"
-        [headerHeight]="50"
-        [footerHeight]="0"
-        [rowHeight]="50"
-        [scrollbarV]="true"
-        [scrollbarH]="true"
-        [rows]="rows">
-        <ngx-datatable-column name="Emp Id" [width]="80" ></ngx-datatable-column>
-        <ngx-datatable-column name="First Name" [width]="300"></ngx-datatable-column>
-        <ngx-datatable-column name="Last Name" [width]="300"></ngx-datatable-column>
-        <ngx-datatable-column name="Date Of Birth" [width]="300"></ngx-datatable-column>
-        <ngx-datatable-column name="Gender"></ngx-datatable-column>
-        <ngx-datatable-column name="Department"></ngx-datatable-column>
-      </ngx-datatable>
+<div class="col-md-12">
+    <div class="col-md-4 border-box float-left">
+        <form [formGroup]="empRegistrationForm" novalidate>
+            <div class="form-group">
+                <label class="center-block">First Name:
+                </label>
+                <input class="form-control" formControlName="firstName">
+            </div>
+            <div *ngIf="empRegistrationForm.controls['firstName'].invalid && (empRegistrationForm.controls['firstName'].dirty || empRegistrationForm.controls['firstName'].touched)"
+                class="alert alert-danger">
+                <div *ngIf="empRegistrationForm.controls['firstName'].errors.required">
+                    First name is required.
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="center-block">Last Name:
+                </label>
+                <input class="form-control" formControlName="lastName">
+            </div>
+            <div *ngIf="empRegistrationForm.controls['lastName'].invalid && (empRegistrationForm.controls['lastName'].dirty || empRegistrationForm.controls['lastName'].touched)"
+                class="alert alert-danger">
+                <div *ngIf="empRegistrationForm.controls['lastName'].errors.required">
+                    Last name is required.
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="center-block">Gender:
+                </label>
+                <input class="form-control" formControlName="gender">
+            </div>
+            <div *ngIf="empRegistrationForm.controls['gender'].invalid && (empRegistrationForm.controls['gender'].dirty || empRegistrationForm.controls['gender'].touched)"
+                class="alert alert-danger">
+                <div *ngIf="empRegistrationForm.controls['gender'].errors.required">
+                    Gender is required.
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="center-block">Date Of Birth:
+                </label>
+                <input type="date" class="form-control" placeholder="yyyy-mm-dd" formControlName="dateOfBirth">
+            </div>
+            <div *ngIf="empRegistrationForm.controls['dateOfBirth'].invalid && (empRegistrationForm.controls['dateOfBirth'].dirty || empRegistrationForm.controls['dateOfBirth'].touched)"
+                class="alert alert-danger">
+                <div *ngIf="empRegistrationForm.controls['dateOfBirth'].errors.required">
+                    Date of birth is required.
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="center-block">Department:
+                </label>
+                <input class="form-control" formControlName="department">
+            </div>
+            <div *ngIf="empRegistrationForm.controls['department'].invalid && (empRegistrationForm.controls['department'].dirty || empRegistrationForm.controls['department'].touched)"
+                class="alert alert-danger">
+                <div *ngIf="empRegistrationForm.controls['department'].errors.required">
+                    Department is required.
+                </div>
+            </div>
+            <button class="btn" (click)="registerEmployee()"><i class="fa fa-upload"></i> Submit</button>
+            <button class="btn" (click)="resetForm()"><i class="fa fa-reply"></i> Reset</button>
+        </form>
+    </div>
+    <div class="col-md-8 float-left">
+        <ngx-datatable class="material fullscreen" style="top: 10px" [columnMode]="'force'" [headerHeight]="50"
+            [footerHeight]="0" [rowHeight]="50" [scrollbarV]="true" [scrollbarH]="true" [rows]="rows">
+            <ngx-datatable-column name="Emp Id"></ngx-datatable-column>
+            <ngx-datatable-column name="First Name"></ngx-datatable-column>
+            <ngx-datatable-column name="Last Name"></ngx-datatable-column>
+            <ngx-datatable-column name="Date Of Birth"></ngx-datatable-column>
+            <ngx-datatable-column name="Gender"></ngx-datatable-column>
+            <ngx-datatable-column name="Department"></ngx-datatable-column>
+        </ngx-datatable>
+    </div>
+</div>
