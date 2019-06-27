@@ -21,15 +21,14 @@ public class Employee {
 	private String firstName;
 	private String lastName;
 	private String gender;
-	@Temporal(TemporalType.DATE)
-	private Date dateOfBirth;
+	private String dateOfBirth;
 	private String department;
 
 	public Employee() {
 
 	}
 
-	public Employee(String firstName, String lastName, String gender, Date dateOfBirth, String department) {
+	public Employee(String firstName, String lastName, String gender, String dateOfBirth, String department) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -71,11 +70,11 @@ public class Employee {
 		this.gender = gender;
 	}
 
-	public Date getDateOfBirth() {
+	public String getDateOfBirth() {
 		return dateOfBirth;
 	}
 
-	public void setDateOfBirth(Date dateOfBirth) {
+	public void setDateOfBirth(String dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 

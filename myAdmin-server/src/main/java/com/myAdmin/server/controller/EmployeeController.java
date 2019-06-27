@@ -9,6 +9,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,15 +27,18 @@ public class EmployeeController {
 
 	@Autowired
 	EmployeeServiceImplementation employeeServiceImp;
-
+	//-----GET All Employee------//
 	@GetMapping("/employees")
+	@CrossOrigin
 	public List<Employee> getAllEmployees() {
-
 		return employeeServiceImp.getAllEmployees();
 	}
 
+	//-----add/create an Employee------//
 	@PostMapping("/employee")
+	@CrossOrigin
 	public Employee registerEmployee(@Valid @RequestBody Employee employee) {
+		System.out.println("Add Employee :" + employee);
 		return employeeServiceImp.addEmployee(employee);
 	}
 }

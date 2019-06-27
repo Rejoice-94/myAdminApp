@@ -23,20 +23,16 @@ import com.myAdmin.server.MyAdminApplication;
 import com.myAdmin.server.model.Employee;
 
 @RunWith(SpringRunner.class)
-@PropertySource("classpath:application.properties")
 @SpringBootTest(classes = MyAdminApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class EmployeeControllerIntegrationTest {
+public class EmployeeRestTest {
 	@Autowired
 	private TestRestTemplate restTemplate;
 	
-	@Autowired
-    private Environment env;
-	
-	private String port = env.getProperty("server.port");
+	@LocalServerPort
+	private int port;
 	
 
 	private String getRootUrl() {
-		System.out.println("PORT to test >>>>>>>>>."+ port);
 		return "http://localhost:" + port;
 	}
 
@@ -62,7 +58,7 @@ public class EmployeeControllerIntegrationTest {
 		employee.setFirstName("testUserFirst");
 		employee.setLastName("testUserLast");
 		employee.setGender("Male");
-		employee.setDateOfBirth(new Date());
+		employee.setDateOfBirth("1994-05-09");
 		employee.setDepartment("Telecom");
 
 		ResponseEntity<Employee> postResponse = restTemplate.postForEntity(getRootUrl() + "/employee", employee,
